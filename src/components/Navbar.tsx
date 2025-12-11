@@ -45,13 +45,13 @@ const Navbar: React.FC = () => {
             {/* --- Icon Kanan --- */}
             <div className="flex items-center gap-4 lg:gap-[19px]">
             <a href="/profile" className="hover:opacity-80 transition-opacity text-white">
-                <UserIcon className="w-7 h-7" />
+                <UserIcon className="w-5 h-5" />
             </a>
             <a href="/wishlist" className="hover:opacity-80 transition-opacity text-white">
-                <HeartIcon className="w-7 h-7" />
+                <HeartIcon className="w-5 h-5" />
             </a>
             <a href="/cart" className="hover:opacity-80 transition-opacity text-white">
-                <ShoppingCartIcon className="w-7 h-7" />
+                <ShoppingCartIcon className="w-5 h-5" />
             </a>
             </div>
         </div>
