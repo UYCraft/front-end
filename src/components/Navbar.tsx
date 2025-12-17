@@ -7,7 +7,6 @@ import {
 } from '@heroicons/react/24/outline';
 import logoimg from '../assets/logodark.png';
 
-
 const Navbar: React.FC = () => {
     return (
         <nav className="flex sticky top-0 z-50 w-full h-16 bg-[#252525]">
@@ -25,7 +24,7 @@ const Navbar: React.FC = () => {
             <input
                 type="text"
                 className="w-full py-2 pl-10 pr-4 h-10 placeholder-gray-400 rounded-full bg-white focus:outline-none text-black"
-                placeholder="Cari di UNY Market"
+                placeholder="Cari di UY Market"
             />
             </div>
 
