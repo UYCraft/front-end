@@ -1,14 +1,13 @@
-import Navbar from './components/Navbar.tsx'
-import LandingPage from './pages/LandingPage.tsx'
+import Navbar from "./components/Navbar.tsx";
+import LandingPage from "./pages/LandingPage.tsx";
+import SignIn from "./pages/SIgnIn.tsx";
 
 function App() {
-
   return (
     <>
-      <Navbar />
-      <LandingPage/>
+      <SignIn />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
