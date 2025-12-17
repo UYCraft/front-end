@@ -1,6 +1,9 @@
 import bg1 from '../assets/bg1.png';
+import logo from "../assets/logodark.png";
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
+  const navigate = useNavigate();
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 min-h-screen font-poppins">
       
@@ -14,9 +17,10 @@ const SignUp = () => {
         
         {/* Logo */}
         <img 
-          src="/Assets/logodark.png" 
+          src={logo} 
           alt="Logo" 
-          className="absolute top-8 left-8 h-20 w-auto object-contain" 
+          className="absolute top-8 left-8 h-20 w-auto object-contain cursor-pointer" 
+          onClick={() => navigate('/')}
         />
         
         {/* Glassmorphism Card */}
