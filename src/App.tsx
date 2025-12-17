@@ -3,7 +3,6 @@ import LandingPage from './pages/LandingPage.tsx'
 import Bottombar from './components/Bottombar.tsx'
 
 function App() {
-
   return (
       <>
         <Navbar />
@@ -13,4 +12,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
