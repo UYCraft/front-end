@@ -1,19 +1,25 @@
 import loginImage from "../assets/img-login.jpg";
 import logo from "../assets/light_logo.png";
+import fesnuk from "../assets/fesnuk.png";
+import gugel from "../assets/gugel.png";
+import { useNavigate } from 'react-router-dom';
 
 
 const SignIn = () => {
+
+  const navigate = useNavigate();
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-5 min-h-screen">
+    <div className="grid grid-cols-1 md:grid-cols-5 h-screen w-full overflow-hidden">
       
       {/* Content Left */}
       <div className="col-span-3 p-10 flex flex-col justify-center relative bg-white">
         <div className="absolute top-10 left-10 w-40">
-          {/* Pastikan path gambar benar (gunakan / bukan \) */}
           <img
             src={logo}
             alt="Logo"
-            className="w-full object-contain"
+            className="w-full object-contain cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={() => navigate('/')}
           />
         </div>
 
@@ -89,7 +95,7 @@ const SignIn = () => {
             <div className="grid grid-cols-2 gap-4 mt-8">
               <button className="flex items-center justify-center h-12 rounded-md border border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-50 transition-all">
                 <img
-                  src="/images/google_logo.svg"
+                  src={gugel}
                   alt="Google"
                   className="w-5 h-5"
                 />
@@ -100,7 +106,7 @@ const SignIn = () => {
 
               <button className="flex items-center justify-center h-12 rounded-md border border-gray-300 hover:border-blue-500 bg-white hover:bg-blue-50 transition-all">
                 <img
-                  src="/images/facebook_logo.svg"
+                  src={fesnuk}
                   alt="Facebook"
                   className="w-5 h-5"
                 />
@@ -116,7 +122,7 @@ const SignIn = () => {
                 Don't have an account?
               </span>
               <a
-                href="#"
+                href="/signup"
                 className="text-green-600 hover:text-green-700 text-sm font-medium hover:underline"
               >
                 Sign-Up
