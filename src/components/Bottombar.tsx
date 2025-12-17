@@ -8,10 +8,19 @@ import ytlogo from '../assets/yt_footer.png';
 import wafooter from '../assets/wa_footer.png';
 import gmailfooter from '../assets/gmail_footer.png';
 import locfooter from '../assets/loc_footer.png';
+import uwit from '../assets/uwit.png';
 
 const Bottombar: React.FC = () => {
   return (
     <footer className="w-full">
+        <div className="w-full h-full">
+          <img 
+            className="w-full h-full object-cover" 
+            src={uwit}
+            alt="Footer Background Left" 
+          />
+        </div>
+
       
       <div className="bg-[#010006] px-12 py-12 text-white">
         
@@ -90,9 +99,9 @@ const Bottombar: React.FC = () => {
           </div>
         </div>
 
-        {/* --- COPYRIGHT --- */}
+        {/* --- COPYRIGHT --- */} 
         {/* mt-[45px] -> mt-12 (48px) */}
-        <div className="text-center mt-12 text-xl font-medium border-t border-gray-800 pt-8">
+        <div className="text-center mt-12 text-lg font-medium border-t border-gray-800 pt-8">
           Copyright © 2025. UYCraft Market All rights reserved.
         </div>
       </div>
