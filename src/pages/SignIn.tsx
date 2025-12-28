@@ -1,13 +1,52 @@
+import { useState } from "react"; // Tambah useState
+import axios from "axios";        // Tambah axios
+import { useNavigate } from 'react-router-dom';
 import loginImage from "../assets/img-login.jpg";
 import logo from "../assets/light_logo.png";
 import fesnuk from "../assets/fesnuk.png";
 import gugel from "../assets/gugel.png";
-import { useNavigate } from 'react-router-dom';
-
 
 const SignIn = () => {
-
   const navigate = useNavigate();
+
+  // --- 1. STATE MANAGEMENT ---
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(""); // Untuk pesan error
+  const [loading, setLoading] = useState(false); // Untuk loading button
+
+  // --- 2. FUNGSI LOGIN ---
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/api/login", {
+        email: email,
+        password: password,
+      });
+
+      // Simpan Token
+      localStorage.setItem("token", response.data.access_token);
+      
+      // Simpan User Info (Opsional, buat nampilin nama di dashboard)
+      localStorage.setItem("user", JSON.stringify(response.data.data));
+
+      // Redirect ke Dashboard
+      navigate("/dashboard");
+
+    } catch (err: any) {
+      // Handle Error dari Backend
+      if (err.response && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Gagal terhubung ke server.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 h-screen w-full overflow-hidden">
@@ -32,12 +71,23 @@ const SignIn = () => {
               Login into your account
             </div>
 
-            <form className="mt-8">
+            {/* ERROR MESSAGE ALERT */}
+            {error && (
+                <div className="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-sm text-center">
+                    {error}
+                </div>
+            )}
+
+            {/* FORM LOGIN */}
+            <form className="mt-8" onSubmit={handleLogin}>
               <div className="email">
                 <input
                   type="email"
                   className="w-full h-12 px-4 rounded-md border border-gray-300 focus:outline-none focus:border-green-500 transition-colors"
                   placeholder="Email"
+                  value={email} // Binding Data
+                  onChange={(e) => setEmail(e.target.value)} // Update Data
+                  required
                 />
               </div>
               <div className="pass mt-6">
@@ -45,6 +95,9 @@ const SignIn = () => {
                   type="password"
                   className="w-full h-12 px-4 rounded-md border border-gray-300 focus:outline-none focus:border-green-500 transition-colors"
                   placeholder="Password"
+                  value={password} // Binding Data
+                  onChange={(e) => setPassword(e.target.value)} // Update Data
+                  required
                 />
               </div>
 
@@ -77,9 +130,12 @@ const SignIn = () => {
               <div className="mt-8">
                 <button
                   type="submit"
-                  className="w-full h-14 flex items-center justify-center rounded-md bg-gray-900 hover:bg-gray-800 text-white transition-all font-medium cursor-pointer"
+                  disabled={loading} // Disable saat loading
+                  className={`w-full h-14 flex items-center justify-center rounded-md text-white transition-all font-medium cursor-pointer ${
+                      loading ? "bg-gray-500 cursor-not-allowed" : "bg-gray-900 hover:bg-gray-800"
+                  }`}
                 >
-                  Log in
+                  {loading ? "Logging in..." : "Log in"}
                 </button>
               </div>
             </form>

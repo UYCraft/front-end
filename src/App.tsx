@@ -4,6 +4,7 @@ import LandingPage from './pages/LandingPage';
 import SignIn from './pages/SignIn'; 
 import SignUp from './pages/SignUp'; 
 import Bottombar from './components/Bottombar';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         </main>
 

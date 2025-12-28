@@ -1,12 +1,63 @@
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { BuildingStorefrontIcon } from "@heroicons/react/24/outline";
 import bg1 from "../assets/bg1.png";
 import logo from "../assets/logodark.png";
 import google from "../assets/gugel.png";
 import facebook from "../assets/fesnuk.png";
-import { useNavigate } from "react-router-dom";
-import { BuildingStorefrontIcon } from "@heroicons/react/24/outline";
 
 const SignUp = () => {
   const navigate = useNavigate();
+
+  // --- 1. STATE ---
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // --- 2. FUNGSI REGISTER ---
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError("");
+
+    // Validasi Password Match Client Side
+    if (password !== confirmPassword) {
+        setError("Password dan Konfirmasi Password tidak sama!");
+        return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/api/register", {
+        name: name,
+        email: email,
+        password: password,
+      });
+
+      // Sukses Register -> Langsung Login otomatis
+      localStorage.setItem("token", response.data.access_token);
+      localStorage.setItem("user", JSON.stringify(response.data.data));
+
+      // Redirect ke Dashboard
+      navigate("/dashboard");
+
+    } catch (err: any) {
+      if (err.response && err.response.data.email) {
+          setError(err.response.data.email[0]); // Email sudah ada
+      } else if (err.response && err.response.data.message) {
+          setError(err.response.data.message);
+      } else {
+          setError("Terjadi kesalahan saat register.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 min-h-screen font-poppins">
       {/* Left Side (Image & Quote) */}
@@ -51,7 +102,14 @@ const SignUp = () => {
             Getting Started is Easy
           </p>
 
-          <form className="w-full flex flex-col gap-4">
+           {/* ERROR ALERT */}
+           {error && (
+                <div className="mb-4 w-full bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded text-sm text-center">
+                    {error}
+                </div>
+            )}
+
+          <form className="w-full flex flex-col gap-4" onSubmit={handleRegister}>
             {/* Inputs */}
             <div>
               <input
@@ -59,6 +117,9 @@ const SignUp = () => {
                 placeholder="Full Name"
                 id="username"
                 type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
               />
             </div>
 
@@ -68,6 +129,9 @@ const SignUp = () => {
                 placeholder="Enter Email"
                 id="email"
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
 
@@ -77,6 +141,9 @@ const SignUp = () => {
                 placeholder="Password"
                 id="password"
                 type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
 
@@ -86,17 +153,23 @@ const SignUp = () => {
                 placeholder="Confirm Password"
                 id="confirmpassword"
                 type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
               />
             </div>
 
             {/* Create Account Button */}
             <button
               type="submit"
-              className="w-full h-14 rounded-lg flex items-center justify-center hover:opacity-90 transition-opacity mt-2"
-              style={{ backgroundColor: "#20dc49" }}
+              disabled={loading}
+              className={`w-full h-14 rounded-lg flex items-center justify-center transition-opacity mt-2 ${
+                  loading ? "bg-green-300 cursor-not-allowed" : "hover:opacity-90"
+              }`}
+              style={{ backgroundColor: loading ? undefined : "#20dc49" }}
             >
               <span className="text-gray-800 text-sm font-medium">
-                Create Account
+                {loading ? "Creating Account..." : "Create Account"}
               </span>
             </button>
           </form>
