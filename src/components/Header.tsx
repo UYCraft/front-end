@@ -29,7 +29,7 @@ const Header: React.FC = () => {
 
             {/* Subtext */}
             <p className="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed font-light w-full md:w-3/4">
-                Merupakan E-Commerce yang menyediakan berbagai macam barang kerajinan tangan tentuYa berkualitas tinggi
+                Merupakan E-Commerce yang menyediakan berbagai macam barang kerajinan tangan tentunya berkualitas tinggi
             </p>
 
             {/* Tombol Belanja Sekarang */}
