@@ -1,5 +1,5 @@
-import { useState } from "react"; // Tambah useState
-import axios from "axios";        // Tambah axios
+import { useState } from "react"; 
+import axios from "axios";        
 import { useNavigate } from 'react-router-dom';
 import loginImage from "../assets/img-login.jpg";
 import logo from "../assets/light_logo.png";
