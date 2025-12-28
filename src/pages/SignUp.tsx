@@ -10,7 +10,6 @@ import facebook from "../assets/fesnuk.png";
 const SignUp = () => {
   const navigate = useNavigate();
 
-  // --- 1. STATE ---
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
