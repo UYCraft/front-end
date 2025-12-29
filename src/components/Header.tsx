@@ -1,47 +1,52 @@
 import React from 'react';
-import { motion } from 'framer-motion'; // 1. Import Framer Motion
+import { motion } from 'framer-motion'; 
 import bgFull from '../assets/bgfull.jpg'; 
 
-// 2. Definisi Variabel Animasi (Variants) agar kodingan rapi
+// --- VARIANTS ---
 const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.3, // Jeda 0.3 detik antar elemen anak (Judul -> Sub -> Button)
-      delayChildren: 0.2,   // Tunggu background muncul dulu sedikit
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+        staggerChildren: 0.3,
+        delayChildren: 0.2,
+        },
     },
-  },
 };
 
 const textVariants = {
-  hidden: { opacity: 0, y: 50 }, // Mulai dari bawah & transparan
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.8, ease: "easeOut" } // Gerakan halus
-  },
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+        opacity: 1, 
+        y: 0,
+        transition: { duration: 0.8, ease: "easeOut" } 
+    },
 };
 
 const Header: React.FC = () => {
     return (
         <div className="relative w-full h-screen overflow-hidden">
         
+        {/* 1. Background Image */}
         <motion.img 
             src={bgFull} 
             alt="Background Kerajinan Tangan" 
             className="absolute inset-0 w-full h-full object-cover"
+            
             initial={{ scale: 1.2, opacity: 0 }} 
-            animate={{ scale: 1, opacity: 1 }}   
+            whileInView={{ scale: 1, opacity: 1 }}   
             transition={{ duration: 1.5, ease: "easeOut" }} 
+            
+            viewport={{ once: false }} 
         />
 
         {/* 2. Dark Overlay */}
         <motion.div 
             className="absolute inset-0 bg-black/60"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            whileInView={{ opacity: 1 }} 
             transition={{ duration: 1 }}
+            viewport={{ once: false }}   
         ></motion.div>
 
         {/* 3. Konten Text Wrapper */}
@@ -51,7 +56,9 @@ const Header: React.FC = () => {
                 className="max-w-2xl text-white mt-1"
                 variants={containerVariants}
                 initial="hidden"
-                animate="visible"
+                whileInView="visible" 
+
+                viewport={{ once: false, amount: 0.5 }} 
             >
             
                 {/* Headline Besar */}
