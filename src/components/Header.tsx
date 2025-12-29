@@ -1,55 +1,98 @@
+import React from 'react';
+import { motion } from 'framer-motion'; // 1. Import Framer Motion
 import bgFull from '../assets/bgfull.jpg'; 
+
+// 2. Definisi Variabel Animasi (Variants) agar kodingan rapi
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3, // Jeda 0.3 detik antar elemen anak (Judul -> Sub -> Button)
+      delayChildren: 0.2,   // Tunggu background muncul dulu sedikit
+    },
+  },
+};
+
+const textVariants = {
+  hidden: { opacity: 0, y: 50 }, // Mulai dari bawah & transparan
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.8, ease: "easeOut" } // Gerakan halus
+  },
+};
 
 const Header: React.FC = () => {
     return (
-        // Container utama setinggi layar (h-screen)
-        <div className="relative w-full h-screen">
+        <div className="relative w-full h-screen overflow-hidden">
         
-        {/* 1. Background Image Full Screen */}
-        <img 
+        <motion.img 
             src={bgFull} 
             alt="Background Kerajinan Tangan" 
             className="absolute inset-0 w-full h-full object-cover"
+            initial={{ scale: 1.2, opacity: 0 }} 
+            animate={{ scale: 1, opacity: 1 }}   
+            transition={{ duration: 1.5, ease: "easeOut" }} 
         />
 
-        {/* 2. Dark Overlay (Penting agar teks terbaca) 
-            bg-black/60 artinya warna hitam dengan opacity 60%
-        */}
-        <div className="absolute inset-0 bg-black/60"></div>
+        {/* 2. Dark Overlay */}
+        <motion.div 
+            className="absolute inset-0 bg-black/60"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+        ></motion.div>
 
-        {/* 3. Konten Text */}
+        {/* 3. Konten Text Wrapper */}
         <div className="relative z-10 h-full flex items-center px-8 md:px-20">
-            <div className="max-w-2xl text-white mt-1">
             
-            {/* Headline Besar */}
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 font-sans">
-                Website E-Commerce <br />
-                Kerajinan Tangan
-            </h1>
-
-            {/* Subtext */}
-            <p className="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed font-light w-full md:w-3/4">
-                Merupakan E-Commerce yang menyediakan berbagai macam barang kerajinan tangan tentunya berkualitas tinggi
-            </p>
-
-            {/* Tombol Belanja Sekarang */}
-            <button className="bg-[#EED9C4] hover:bg-[#dec4aa] text-black font-semibold py-3 px-8 rounded-lg flex items-center gap-3 transition-all duration-300 group">
-                <span>Belanja Sekarang</span>
-                {/* Icon Panah (SVG) */}
-                <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                strokeWidth={2} 
-                stroke="currentColor" 
-                className="w-5 h-5 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform"
+            <motion.div 
+                className="max-w-2xl text-white mt-1"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+            >
+            
+                {/* Headline Besar */}
+                <motion.h1 
+                    className="text-4xl md:text-6xl font-bold leading-tight mb-6 font-sans"
+                    variants={textVariants}
                 >
-                {/* Panah mengarah serong kanan bawah (sesuai gambar) */}
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 19.5l-15-15m0 0v11.25m0-11.25h11.25" transform="rotate(90 12 12)" />
-                </svg>
-            </button>
+                    Website E-Commerce <br />
+                    Kerajinan Tangan
+                </motion.h1>
 
-            </div>
+                {/* Subtext */}
+                <motion.p 
+                    className="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed font-light w-full md:w-3/4"
+                    variants={textVariants}
+                >
+                    Merupakan E-Commerce yang menyediakan berbagai macam barang kerajinan tangan tentunya berkualitas tinggi
+                </motion.p>
+
+                {/* Tombol Belanja Sekarang */}
+                <motion.button 
+                    className="bg-[#EED9C4] hover:bg-[#dec4aa] text-black font-semibold py-3 px-8 rounded-lg flex items-center gap-3 transition-all duration-300 group"
+                    variants={textVariants}
+                    whileHover={{ scale: 1.05 }} 
+                    whileTap={{ scale: 0.95 }}   
+                >
+                    <span>Belanja Sekarang</span>
+                    {/* Icon Panah (SVG) */}
+                    <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        strokeWidth={2} 
+                        stroke="currentColor" 
+                        className="w-5 h-5 group-hover:translate-x-1 group-hover:translate-y-1 transition-transform"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 19.5l-15-15m0 0v11.25m0-11.25h11.25" transform="rotate(90 12 12)" />
+                    </svg>
+                </motion.button>
+
+            </motion.div>
         </div>
         </div>
     )
