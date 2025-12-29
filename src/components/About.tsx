@@ -6,29 +6,29 @@ import gerabahImg from '../assets/gerabah.jpg';
 import ilustrasi from '../assets/ilustrasi.png'; 
 
 const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2 }
-  }
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.2 }
+    }
 };
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 50 }, 
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.6, ease: "easeOut" } 
-  }
+    hidden: { opacity: 0, y: 50 }, 
+    visible: { 
+        opacity: 1, 
+        y: 0, 
+        transition: { duration: 0.6, ease: "easeOut" } 
+    }
 };
 
 const fadeInRight = {
-  hidden: { opacity: 0, x: 100 }, 
-  visible: { 
-    opacity: 1, 
-    x: 0, 
-    transition: { duration: 0.8, ease: "easeOut" } 
-  }
+    hidden: { opacity: 0, x: 100 }, 
+    visible: { 
+        opacity: 1, 
+        x: 0, 
+        transition: { duration: 0.8, ease: "easeOut" } 
+    }
 };
 
 const About: React.FC = () => {
