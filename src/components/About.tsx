@@ -86,7 +86,7 @@ const About: React.FC = () => {
                     <div className="flex flex-col items-center">
                         <motion.div 
                             className="w-55 h-36 rounded-lg overflow-hidden shadow-md cursor-pointer"
-                            whileHover={{ scale: 1.05, rotate: -2 }}
+                            whileHover={{ scale: 1.05, rotate: -5 }}
                             transition={{ type: "spring", stiffness: 300 }}
                         >
                             <img src={gerabahImg} alt="Karya gerabah" className="w-full h-full object-cover"/>
@@ -102,7 +102,6 @@ const About: React.FC = () => {
                 variants={fadeInRight}
                 initial="hidden"
                 whileInView="visible"
-                // PERUBAHAN DISINI JUGA:
                 viewport={{ once: false, amount: 0.3 }}
             >
                 <div className="relative w-full max-w-lg">
