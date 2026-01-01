@@ -5,15 +5,13 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp'; 
 import Bottombar from './components/Bottombar';
 import Dashboard from './pages/Dashboard';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
-    // PENTING: <Router> harus menjadi pembungkus TERLUAR
-    // Agar Navbar (yang ada di dalamnya) bisa menggunakan useNavigate
     <Router>
       <div className="min-h-screen flex flex-col font-sans">
-        
-        {/* Navbar sekarang aman karena ada di dalam Router */}
+
         <Navbar />
         
         <main className="grow">
@@ -21,8 +19,13 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Routes>
+            
+            <Route element={<PrivateRoute />}>
+               <Route path="/dashboard" element={<Dashboard />} />
+               {/* Halaman lain yang butuh login taruh sini */}
+            </Route>
+
+          </Routes> 
         </main>
 
         <Bottombar />
