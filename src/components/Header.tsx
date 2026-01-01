@@ -66,7 +66,7 @@ const Header: React.FC = () => {
                     className="text-4xl md:text-6xl font-bold leading-tight mb-6 font-sans"
                     variants={textVariants}
                 >
-                    Website E-Commerce <br />
+                    Website <br /> E-Commerce <br />
                     Kerajinan Tangan
                 </motion.h1>
 
