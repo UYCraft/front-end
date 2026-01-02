@@ -1,6 +1,7 @@
 import { useState } from "react"; 
 import axios from "axios";        
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import loginImage from "../assets/img-login.jpg";
 import logo from "../assets/light_logo.png";
 import fesnuk from "../assets/fesnuk.png";
@@ -32,6 +33,15 @@ const SignIn = () => {
       
       // Simpan User Info (Opsional, buat nampilin nama di dashboard)
       localStorage.setItem("user", JSON.stringify(response.data.data));
+
+      // Tampilkan notifikasi sukses
+      toast.success(`Selamat datang, ${response.data.data.name || "User"}`, {
+        duration: 3000,
+        style: {
+          background: '#10B981',
+          color: '#fff',
+        },
+      });
 
       // Redirect ke Dashboard
       navigate("/dashboard");
