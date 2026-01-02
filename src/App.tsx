@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import Navbar from './components/Navbar';
 import LandingPage from './pages/LandingPage';
 import SignIn from './pages/SignIn'; 
@@ -10,6 +11,7 @@ import PrivateRoute from './components/PrivateRoute';
 function App() {
   return (
     <Router>
+      <Toaster position="top-center" />
       <div className="min-h-screen flex flex-col font-sans">
 
         <Navbar />
