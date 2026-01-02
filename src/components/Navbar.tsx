@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Tooltip } from 'antd';
 import { 
     MagnifyingGlassIcon, 
     UserIcon, 
     HeartIcon, 
-    ShoppingCartIcon 
+    ShoppingCartIcon,
+    ArrowLeftEndOnRectangleIcon,
+
 } from '@heroicons/react/24/outline';
 import logoimg from '../assets/logodark.png';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -12,11 +15,9 @@ const Navbar: React.FC = () => {
 
     const navigate = useNavigate();
     const location = useLocation(); 
-    
-    // Default false, akan berubah jadi true jika token ditemukan
+
     const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
-    // 1. SENSOR OTOMATIS: Cek Token
     useEffect(() => {
         const token = localStorage.getItem('token');
         setIsLoggedIn(!!token); 
@@ -46,7 +47,6 @@ const Navbar: React.FC = () => {
                     src={logoimg}
                     alt="Logo UNY Market" 
                     className="h-10 pl-4 box-content object-contain cursor-pointer" 
-                    // Kalau login -> ke Dashboard, Kalau belum -> ke Home biasa
                     onClick={() => isLoggedIn ? navigate('/dashboard') : navigate('/')}
                 />
 
@@ -60,46 +60,61 @@ const Navbar: React.FC = () => {
                     />
                 </div>
 
-                {/* --- KANAN (LOGIC SESUAI LOGIN) --- */}
+                
                 {isLoggedIn ? (
-                    // >>> KONDISI A: SUDAH LOGIN (NAVBAR KHUSUS)
+                    // Navbar Khusus (Kalau Sudah Login)
                     <>
                         <div className="hidden md:flex items-center text-[#fff000] font-medium gap-8 lg:gap-14">
-                            {/* PERMINTAANMU: Home mengarah ke Dashboard jika sudah login */}
-                            <button onClick={() => navigate('/dashboard')} className="hover:text-yellow-200 transition-colors">
-                                Home
-                            </button>
                             
-                            {/* Catalog tetap ke Catalog */}
+                            <Tooltip title="Home" placement="bottom" mouseEnterDelay={0.3} arrow={false}>
+                                <button onClick={() => navigate('/dashboard')} className="hover:text-yellow-200 transition-colors">
+                                    Home
+                                </button>
+                            </Tooltip>
+                            
+                            <Tooltip title="Catalog" placement="bottom" mouseEnterDelay={0.3} arrow={false}>
                             <button onClick={() => navigate('/catalog')} className="hover:text-yellow-200 transition-colors">
                                 Catalog
                             </button>
+                            </Tooltip>
                             
+                            <Tooltip title="Contact" placement="bottom" mouseEnterDelay={0.3} arrow={false}>
                             <button onClick={() => navigate('/contact')} className="hover:text-yellow-200 transition-colors">
                                 Contact
                             </button>
+                            </Tooltip>  
                         </div>
 
                         {/* Icon Kanan */}
-                        <div className="flex items-center gap-4 lg:gap-[19px]">
-                            <button onClick={() => navigate('/profile')} className="hover:opacity-80 transition-opacity text-white">
-                                <UserIcon className="w-5 h-5" />
-                            </button>
-                            <button onClick={() => navigate('/wishlist')} className="hover:opacity-80 transition-opacity text-white">
-                                <HeartIcon className="w-5 h-5" />
-                            </button>
-                            <button onClick={() => navigate('/cart')} className="hover:opacity-80 transition-opacity text-white">
-                                <ShoppingCartIcon className="w-5 h-5" />
-                            </button>
+                        <div className="flex items-center gap-4 lg:gap-4.75">
+                            <Tooltip title="Profile" placement="bottom" mouseEnterDelay={0.3} arrow={false}>
+                                <button onClick={() => navigate('/profile')} className="hover:opacity-80 transition-opacity text-white">
+                                    <UserIcon className="w-5 h-5" />
+                                </button>
+                            </Tooltip>
+                            
+                            <Tooltip title="Wishlist" placement="bottom" mouseEnterDelay={0.3} arrow={false}>
+                                <button onClick={() => navigate('/wishlist')} className="hover:opacity-80 transition-opacity text-white">
+                                    <HeartIcon className="w-5 h-5" />
+                                </button>
+                            </Tooltip>
+                            
+                            <Tooltip title="Keranjang" placement="bottom" mouseEnterDelay={0.3} arrow={false}>
+                                <button onClick={() => navigate('/cart')} className="hover:opacity-80 transition-opacity text-white">
+                                    <ShoppingCartIcon className="w-5 h-5" />
+                                </button>
+                            </Tooltip>
                             
                             {/* Tombol Logout */}
-                            <button onClick={handleLogout} className="text-xs text-red-400 ml-2 hover:text-red-300">
-                                (Keluar)
-                            </button>
+                            <Tooltip title="Logout" placement="bottom" mouseEnterDelay={0.3} arrow={false} color="red">
+                                <button onClick={handleLogout} className="text-xs text-red-400 ml-2 hover:text-red-300">
+                                    <ArrowLeftEndOnRectangleIcon className="w-5 h-5" />
+                                </button>
+                            </Tooltip>
                         </div>
                     </>
                 ) : (
-                    // >>> KONDISI B: BELUM LOGIN (NAVBAR BIASA)
+                    // Navbar Biasa (Kalau Belum Login)
                     <div className="flex items-center gap-4">
                         <button 
                             onClick={() => navigate('/signup')}
